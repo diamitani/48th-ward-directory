@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>your48 - System Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #020617;
+            color: #e2e8f0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #22d3ee;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .header h1::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #22d3ee;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #94a3b8;
+            letter-spacing: 1px;
+        }
+
+        .diagram-container {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .architecture-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .card-dot.cyan { background: #22d3ee; }
+        .card-dot.emerald { background: #34d399; }
+        .card-dot.violet { background: #a78bfa; }
+        .card-dot.amber { background: #fbbf24; }
+        .card-dot.rose { background: #fb7185; }
+        .card-dot.orange { background: #fb923c; }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            font-size: 13px;
+            color: #cbd5e1;
+            padding: 6px 0;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .card li:last-child {
+            border-bottom: none;
+        }
+
+        .card li::before {
+            content: '•';
+            color: #64748b;
+            margin-right: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            padding-top: 20px;
+            border-top: 1px solid #1e293b;
+        }
+
+        /* SVG Styles */
+        .component {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .component-label {
+            font-size: 12px;
+            font-weight: 600;
+            fill: #f1f5f9;
+        }
+
+        .component-sublabel {
+            font-size: 9px;
+            fill: #94a3b8;
+        }
+
+        .component-annotation {
+            font-size: 8px;
+            fill: #64748b;
+            font-style: italic;
+        }
+
+        .arrow {
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .grid-line {
+            stroke: #1e293b;
+            stroke-width: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>your48 System Architecture</h1>
+            <p>CIVIC INTELLIGENCE PLATFORM • CHICAGO 48TH WARD</p>
+        </div>
+
+        <div class="diagram-container">
+            <svg class="architecture-svg" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Grid -->
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+                    </pattern>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#94a3b8"/>
+                    </marker>
+                </defs>
+                
+                <rect width="1200" height="800" fill="#020617"/>
+                <rect width="1200" height="800" fill="url(#grid)"/>
+
+                <!-- Title -->
+                <text x="600" y="30" text-anchor="middle" class="component-label" style="font-size: 14px; fill: #22d3ee;">4-LAYER ARCHITECTURE</text>
+
+                <!-- Layer 1: Client Layer (Frontend) -->
+                <g id="client-layer">
+                    <!-- Web App -->
+                    <rect x="50" y="80" width="180" height="60" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+                    <rect x="51" y="81" width="178" height="58" rx="5" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                    <text x="140" y="105" text-anchor="middle" class="component-label">Next.js 15</text>
+                    <text x="140" y="120" text-anchor="middle" class="component-sublabel">App Router + SSR</text>
+
+                    <!-- Mobile -->
+                    <rect x="280" y="80" width="180" height="60" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+                    <rect x="281" y="81" width="178" height="58" rx="5" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                    <text x="370" y="105" text-anchor="middle" class="component-label">PWA</text>
+                    <text x="370" y="120" text-anchor="middle" class="component-sublabel">Mobile-First</text>
+
+                    <!-- Map Interface -->
+                    <rect x="510" y="80" width="180" height="60" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+                    <rect x="511" y="81" width="178" height="58" rx="5" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                    <text x="600" y="105" text-anchor="middle" class="component-label">Mapbox GL</text>
+                    <text x="600" y="120" text-anchor="middle" class="component-sublabel">Precinct Overlay</text>
+
+                    <!-- Search -->
+                    <rect x="740" y="80" width="180" height="60" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+                    <rect x="741" y="81" width="178" height="58" rx="5" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                    <text x="830" y="105" text-anchor="middle" class="component-label">Fuse.js</text>
+                    <text x="830" y="120" text-anchor="middle" class="component-sublabel">Client Search</text>
+
+                    <!-- Forms -->
+                    <rect x="970" y="80" width="180" height="60" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5"/>
+                    <rect x="971" y="81" width="178" height="58" rx="5" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                    <text x="1060" y="105" text-anchor="middle" class="component-label">React Forms</text>
+                    <text x="1060" y="120" text-anchor="middle" class="component-sublabel">Hook Form + Zod</text>
+                </g>
+
+                <!-- Arrows from Client to API Gateway -->
+                <path d="M 140 140 L 140 200 M 370 140 L 370 200 M 600 140 L 600 200 M 830 140 L 830 200 M 1060 140 L 1060 200" 
+                      stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+                <!-- Layer 2: API Layer (Backend) -->
+                <g id="api-layer">
+                    <!-- API Gateway -->
+                    <rect x="300" y="200" width="600" height="80" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+                    <rect x="301" y="201" width="598" height="78" rx="5" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+                    <text x="600" y="230" text-anchor="middle" class="component-label">Vercel Serverless Functions</text>
+                    <text x="600" y="245" text-anchor="middle" class="component-sublabel">API Routes • Authentication • Rate Limiting</text>
+                    <text x="600" y="260" text-anchor="middle" class="component-sublabel">/api/businesses • /api/institutions • /api/precincts • /api/tickets</text>
+
+                    <!-- External APIs -->
+                    <rect x="50" y="200" width="180" height="80" rx="6" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
+                    <rect x="51" y="201" width="178" height="78" rx="5" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+                    <text x="140" y="225" text-anchor="middle" class="component-label">Chicago Data Portal</text>
+                    <text x="140" y="240" text-anchor="middle" class="component-sublabel">Business Licenses</text>
+                    <text x="140" y="255" text-anchor="middle" class="component-sublabel">311 Requests</text>
+                    <text x="140" y="270" text-anchor="middle" class="component-sublabel">Building Permits</text>
+
+                    <rect x="970" y="200" width="180" height="80" rx="6" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
+                    <rect x="971" y="201" width="178" height="78" rx="5" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+                    <text x="1060" y="225" text-anchor="middle" class="component-label">Board of Elections</text>
+                    <text x="1060" y="240" text-anchor="middle" class="component-sublabel">Precinct Boundaries</text>
+                    <text x="1060" y="255" text-anchor="middle" class="component-sublabel">GeoJSON Data</text>
+                </g>
+
+                <!-- Arrows from API to Data Layer -->
+                <path d="M 400 280 L 400 360 M 600 280 L 600 360 M 800 280 L 800 360" 
+                      stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+                <!-- Layer 3: Data Layer -->
+                <g id="data-layer">
+                    <!-- Airtable -->
+                    <rect x="150" y="360" width="250" height="100" rx="6" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5"/>
+                    <rect x="151" y="361" width="248" height="98" rx="5" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+                    <text x="275" y="385" text-anchor="middle" class="component-label">Airtable</text>
+                    <text x="275" y="400" text-anchor="middle" class="component-sublabel">Primary Database</text>
+                    <text x="275" y="420" text-anchor="middle" class="component-annotation">Tables:</text>
+                    <text x="275" y="435" text-anchor="middle" class="component-annotation">• Businesses (1,562 records)</text>
+                    <text x="275" y="445" text-anchor="middle" class="component-annotation">• Institutions (69 records)</text>
+                    <text x="275" y="455" text-anchor="middle" class="component-annotation">• Service Tickets</text>
+
+                    <!-- Static JSON -->
+                    <rect x="450" y="360" width="250" height="100" rx="6" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5"/>
+                    <rect x="451" y="361" width="248" height="98" rx="5" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+                    <text x="575" y="385" text-anchor="middle" class="component-label">Static JSON</text>
+                    <text x="575" y="400" text-anchor="middle" class="component-sublabel">Vercel Edge Cache</text>
+                    <text x="575" y="420" text-anchor="middle" class="component-annotation">Files:</text>
+                    <text x="575" y="435" text-anchor="middle" class="component-annotation">• precinct-data.json (4MB)</text>
+                    <text x="575" y="445" text-anchor="middle" class="component-annotation">• ward48.seed.json (18KB)</text>
+                    <text x="575" y="455" text-anchor="middle" class="component-annotation">• boundary-geojson (~2MB)</text>
+
+                    <!-- Cron Jobs -->
+                    <rect x="750" y="360" width="250" height="100" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+                    <rect x="751" y="361" width="248" height="98" rx="5" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+                    <text x="875" y="385" text-anchor="middle" class="component-label">Vercel Cron</text>
+                    <text x="875" y="400" text-anchor="middle" class="component-sublabel">Data Sync Pipeline</text>
+                    <text x="875" y="420" text-anchor="middle" class="component-annotation">Schedules:</text>
+                    <text x="875" y="435" text-anchor="middle" class="component-annotation">• Daily: Business licenses</text>
+                    <text x="875" y="445" text-anchor="middle" class="component-annotation">• Daily: 311 requests</text>
+                    <text x="875" y="455" text-anchor="middle" class="component-annotation">• Weekly: Building permits</text>
+                </g>
+
+                <!-- Arrows from Data to Processing -->
+                <path d="M 275 460 L 275 540 M 575 460 L 575 540" 
+                      stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+                <!-- Layer 4: Processing Layer -->
+                <g id="processing-layer">
+                    <!-- Data Ingestion -->
+                    <rect x="150" y="540" width="250" height="80" rx="6" fill="#0f172a" stroke="#fb923c" stroke-width="1.5"/>
+                    <rect x="151" y="541" width="248" height="78" rx="5" fill="rgba(251, 146, 60, 0.3)" stroke="#fb923c" stroke-width="1.5"/>
+                    <text x="275" y="565" text-anchor="middle" class="component-label">Data Ingestion</text>
+                    <text x="275" y="580" text-anchor="middle" class="component-sublabel">Node.js Scripts</text>
+                    <text x="275" y="600" text-anchor="middle" class="component-annotation">• sync-civic-data.js</text>
+                    <text x="275" y="610" text-anchor="middle" class="component-annotation">• Normalizes & validates</text>
+
+                    <!-- AI Processing -->
+                    <rect x="450" y="540" width="250" height="80" rx="6" fill="#0f172a" stroke="#fb923c" stroke-width="1.5"/>
+                    <rect x="451" y="541" width="248" height="78" rx="5" fill="rgba(251, 146, 60, 0.3)" stroke="#fb923c" stroke-width="1.5"/>
+                    <text x="575" y="565" text-anchor="middle" class="component-label">ROSTR Framework</text>
+                    <text x="575" y="580" text-anchor="middle" class="component-sublabel">AI Orchestration</text>
+                    <text x="575" y="600" text-anchor="middle" class="component-annotation">• PAL: Intent Compilation</text>
+                    <text x="575" y="610" text-anchor="middle" class="component-annotation">• NPAO: Phase Routing</text>
+
+                    <!-- Analytics -->
+                    <rect x="750" y="540" width="250" height="80" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+                    <rect x="751" y="541" width="248" height="78" rx="5" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+                    <text x="875" y="565" text-anchor="middle" class="component-label">Analytics Engine</text>
+                    <text x="875" y="580" text-anchor="middle" class="component-sublabel">Plausible / PostHog</text>
+                    <text x="875" y="600" text-anchor="middle" class="component-annotation">• User behavior tracking</text>
+                    <text x="875" y="610" text-anchor="middle" class="component-annotation">• Performance metrics</text>
+                </g>
+
+                <!-- Security Boundary -->
+                <rect x="30" y="180" width="1140" height="290" rx="12" fill="none" stroke="#fb7185" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="1170" y="195" text-anchor="end" style="font-size: 10px; fill: #fb7185; font-weight: 600;">SECURE BOUNDARY</text>
+
+                <!-- Data Flow Annotations -->
+                <text x="275" y="500" text-anchor="middle" class="component-annotation" style="fill: #fbbf24;">API TOKENS</text>
+                <text x="575" y="500" text-anchor="middle" class="component-annotation" style="fill: #fbbf24;">STATIC FILES</text>
+                <text x="875" y="500" text-anchor="middle" class="component-annotation" style="fill: #fbbf24;">CRON TRIGGERS</text>
+
+                <!-- User Flow -->
+                <rect x="50" y="650" width="1100" height="100" rx="6" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
+                <text x="600" y="675" text-anchor="middle" class="component-label" style="font-size: 14px; fill: #94a3b8;">USER JOURNEY</text>
+                <text x="600" y="695" text-anchor="middle" class="component-sublabel">Resident visits your48.org → Searches business/precinct → Views map or directory → Submits form or contacts captain</text>
+                <text x="600" y="715" text-anchor="middle" class="component-sublabel">Staff logs into /admin → Reviews tickets → Updates data → Manages initiatives</text>
+                <text x="600" y="735" text-anchor="middle" class="component-annotation">All interactions logged to analytics • All data encrypted in transit (HTTPS) • Rate limiting prevents abuse</text>
+
+                <!-- Legend -->
+                <g transform="translate(50, 60)">
+                    <text x="0" y="0" class="component-label" style="font-size: 10px;">LEGEND:</text>
+                    <rect x="0" y="10" width="12" height="12" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+                    <text x="18" y="20" style="font-size: 8px; fill: #cbd5e1;">Frontend</text>
+                    
+                    <rect x="70" y="10" width="12" height="12" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+                    <text x="88" y="20" style="font-size: 8px; fill: #cbd5e1;">Backend</text>
+                    
+                    <rect x="140" y="10" width="12" height="12" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+                    <text x="158" y="20" style="font-size: 8px; fill: #cbd5e1;">Database</text>
+                    
+                    <rect x="210" y="10" width="12" height="12" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+                    <text x="228" y="20" style="font-size: 8px; fill: #cbd5e1;">Cloud/Automation</text>
+                    
+                    <rect x="310" y="10" width="12" height="12" fill="rgba(251, 146, 60, 0.3)" stroke="#fb923c" stroke-width="1.5"/>
+                    <text x="328" y="20" style="font-size: 8px; fill: #cbd5e1;">Processing</text>
+                    
+                    <rect x="390" y="10" width="12" height="12" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+                    <text x="408" y="20" style="font-size: 8px; fill: #cbd5e1;">External</text>
+                </g>
+            </svg>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot cyan"></div>
+                    <h3>Frontend Layer</h3>
+                </div>
+                <ul>
+                    <li>Next.js 15 with App Router for SSR</li>
+                    <li>Tailwind CSS + shadcn/ui components</li>
+                    <li>Mapbox GL for precinct boundary overlay</li>
+                    <li>Fuse.js for client-side fuzzy search</li>
+                    <li>React Hook Form + Zod validation</li>
+                    <li>Mobile-first responsive design</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot emerald"></div>
+                    <h3>API Layer</h3>
+                </div>
+                <ul>
+                    <li>Vercel Serverless Functions (Edge runtime)</li>
+                    <li>RESTful API routes for all entities</li>
+                    <li>Authentication via environment variables</li>
+                    <li>Rate limiting (100 req/min per IP)</li>
+                    <li>CORS configured for your48.org only</li>
+                    <li>Input sanitization on all endpoints</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot violet"></div>
+                    <h3>Data Layer</h3>
+                </div>
+                <ul>
+                    <li>Airtable: Tickets, initiatives, events</li>
+                    <li>Static JSON: Directory data (edge-cached)</li>
+                    <li>Vercel Cron: Daily/weekly sync jobs</li>
+                    <li>Chicago Data Portal API (50K req/day)</li>
+                    <li>Board of Elections GeoJSON</li>
+                    <li>Total data: ~17MB (well within limits)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot amber"></div>
+                    <h3>Automation</h3>
+                </div>
+                <ul>
+                    <li>Vercel Cron: Scheduled data syncs</li>
+                    <li>Node.js scripts: Data normalization</li>
+                    <li>Error handling: Retry with backoff</li>
+                    <li>Logging: All sync operations logged</li>
+                    <li>Fallback: Static data if API fails</li>
+                    <li>Cost: $0 (Vercel free tier)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot orange"></div>
+                    <h3>Processing</h3>
+                </div>
+                <ul>
+                    <li>ROSTR Framework: AI orchestration</li>
+                    <li>PAL: User intent compilation</li>
+                    <li>NPAO: Task phase classification</li>
+                    <li>Data validation: Schema enforcement</li>
+                    <li>Geocoding: Address → coordinates</li>
+                    <li>Precinct detection: Point-in-polygon</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot rose"></div>
+                    <h3>Security</h3>
+                </div>
+                <ul>
+                    <li>HTTPS-only (TLS 1.3)</li>
+                    <li>API keys in env vars (never client-side)</li>
+                    <li>CSRF tokens on all forms</li>
+                    <li>XSS prevention (input escaping)</li>
+                    <li>Rate limiting prevents abuse</li>
+                    <li>WCAG 2.1 AA accessibility</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot cyan"></div>
+                    <h3>Data Flow: Search</h3>
+                </div>
+                <ul>
+                    <li>1. User types in search box</li>
+                    <li>2. Fuse.js queries local JSON cache</li>
+                    <li>3. Results render in <100ms</li>
+                    <li>4. Click → API fetches full record</li>
+                    <li>5. Detail page renders with map pin</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot emerald"></div>
+                    <h3>Data Flow: Intake Form</h3>
+                </div>
+                <ul>
+                    <li>1. User fills form (address auto-detect precinct)</li>
+                    <li>2. Zod validates, photos upload to S3</li>
+                    <li>3. API creates Airtable record</li>
+                    <li>4. Confirmation email sent</li>
+                    <li>5. Staff dashboard shows new ticket</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-dot violet"></div>
+                    <h3>Data Flow: Sync</h3>
+                </div>
+                <ul>
+                    <li>1. Vercel Cron triggers daily at 2 AM</li>
+                    <li>2. Script fetches from Data Portal API</li>
+                    <li>3. Data normalized, validated</li>
+                    <li>4. Airtable updated (upsert)</li>
+                    <li>5. Static JSON regenerated on Vercel</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>your48 System Architecture • Generated July 1, 2026 • Version 1.0</p>
+            <p>Built with ROSTR Framework • Deployed on Vercel • Data from Chicago Data Portal</p>
+        </div>
+    </div>
+</body>
+</html>

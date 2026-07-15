@@ -1,0 +1,42 @@
+[
+  {
+    "precinct": "P01",
+    "name": "Care for Real",
+    "type": "Community Center",
+    "address": "5840 North Broadway",
+    "phone": null,
+    "website": "https://careforreal.org/"
+  },
+  {
+    "precinct": "P04",
+    "name": "Bosnian Herzogovinian American Community Center",
+    "type": "Community Center",
+    "address": "1016 West Argyle Street",
+    "phone": null,
+    "website": null
+  },
+  {
+    "precinct": "P04",
+    "name": "Chinese Mutual Aid Association",
+    "type": "Community Center",
+    "address": "1016 West Argyle Street",
+    "phone": null,
+    "website": null
+  },
+  {
+    "precinct": "P04",
+    "name": "The SelfHelp Home",
+    "type": "Community Center",
+    "address": "908 West Argyle Street",
+    "phone": null,
+    "website": "https://selfhelphome.org/"
+  },
+  {
+    "precinct": "P32",
+    "name": "Kindered Lakeshore Hospital",
+    "type": "Hospital",
+    "address": "6130 North Sheridan Road",
+    "phone": null,
+    "website": null
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "precinct": "P02",
+    "name": "Berger Park",
+    "type": "Park",
+    "address": "6205 North Sheridan Road"
+  },
+  {
+    "precinct": "P06",
+    "name": "Edgewater Historic Park",
+    "type": "Park",
+    "address": "Chicago, IL 60660"
+  },
+  {
+    "precinct": "P08",
+    "name": "Lane Beach Park",
+    "type": "Park",
+    "address": "5915 North Sheridan Road"
+  },
+  {
+    "precinct": "P12",
+    "name": "Cedar Playlot Park",
+    "type": "Park",
+    "address": "5311 North Winthrop Avenue"
+  },
+  {
+    "precinct": "P13",
+    "name": "Park No. 559",
+    "type": "Park",
+    "address": "6151 North Sheridan Road"
+  },
+  {
+    "precinct": "P18",
+    "name": "Interfaith Park",
+    "type": "Park",
+    "address": "5914 North Sheridan Road"
+  },
+  {
+    "precinct": "P19",
+    "name": "Bromann Park",
+    "type": "Park",
+    "address": "5400 North Broadway"
+  },
+  {
+    "precinct": "P19",
+    "name": "Cochran Playlot Park",
+    "type": "Park",
+    "address": "5550 North Magnolia Avenue"
+  },
+  {
+    "precinct": "P24",
+    "name": "Buttercup Park",
+    "type": "Park",
+    "address": "4901 North Sheridan Road"
+  },
+  {
+    "precinct": "P24",
+    "name": "Margate Park",
+    "type": "Park",
+    "address": "4921 North Marine Drive"
+  },
+  {
+    "precinct": "P25",
+    "name": "D'Elia Park",
+    "type": "Park",
+    "address": "6340 North Lakewood Avenue"
+  }
+]

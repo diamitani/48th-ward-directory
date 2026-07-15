@@ -1,0 +1,212 @@
+[
+  {
+    "precinct": 1,
+    "registered_voters": 1318,
+    "ballots_cast": 722,
+    "turnout_pct": 54.78
+  },
+  {
+    "precinct": 2,
+    "registered_voters": 499,
+    "ballots_cast": 231,
+    "turnout_pct": 46.29
+  },
+  {
+    "precinct": 3,
+    "registered_voters": 997,
+    "ballots_cast": 363,
+    "turnout_pct": 36.41
+  },
+  {
+    "precinct": 4,
+    "registered_voters": 998,
+    "ballots_cast": 493,
+    "turnout_pct": 49.4
+  },
+  {
+    "precinct": 5,
+    "registered_voters": 433,
+    "ballots_cast": 286,
+    "turnout_pct": 66.05
+  },
+  {
+    "precinct": 6,
+    "registered_voters": 1330,
+    "ballots_cast": 557,
+    "turnout_pct": 41.88
+  },
+  {
+    "precinct": 7,
+    "registered_voters": 1088,
+    "ballots_cast": 552,
+    "turnout_pct": 50.74
+  },
+  {
+    "precinct": 8,
+    "registered_voters": 849,
+    "ballots_cast": 347,
+    "turnout_pct": 40.87
+  },
+  {
+    "precinct": 9,
+    "registered_voters": 626,
+    "ballots_cast": 229,
+    "turnout_pct": 36.58
+  },
+  {
+    "precinct": 10,
+    "registered_voters": 1185,
+    "ballots_cast": 640,
+    "turnout_pct": 54.01
+  },
+  {
+    "precinct": 11,
+    "registered_voters": 835,
+    "ballots_cast": 472,
+    "turnout_pct": 56.53
+  },
+  {
+    "precinct": 12,
+    "registered_voters": 1445,
+    "ballots_cast": 594,
+    "turnout_pct": 41.11
+  },
+  {
+    "precinct": 13,
+    "registered_voters": 1019,
+    "ballots_cast": 441,
+    "turnout_pct": 43.28
+  },
+  {
+    "precinct": 14,
+    "registered_voters": 1313,
+    "ballots_cast": 501,
+    "turnout_pct": 38.16
+  },
+  {
+    "precinct": 15,
+    "registered_voters": 966,
+    "ballots_cast": 393,
+    "turnout_pct": 40.68
+  },
+  {
+    "precinct": 16,
+    "registered_voters": 843,
+    "ballots_cast": 347,
+    "turnout_pct": 41.16
+  },
+  {
+    "precinct": 17,
+    "registered_voters": 378,
+    "ballots_cast": 162,
+    "turnout_pct": 42.86
+  },
+  {
+    "precinct": 18,
+    "registered_voters": 1505,
+    "ballots_cast": 499,
+    "turnout_pct": 33.16
+  },
+  {
+    "precinct": 19,
+    "registered_voters": 673,
+    "ballots_cast": 294,
+    "turnout_pct": 43.68
+  },
+  {
+    "precinct": 20,
+    "registered_voters": 429,
+    "ballots_cast": 202,
+    "turnout_pct": 47.09
+  },
+  {
+    "precinct": 21,
+    "registered_voters": 1625,
+    "ballots_cast": 556,
+    "turnout_pct": 34.22
+  },
+  {
+    "precinct": 22,
+    "registered_voters": 619,
+    "ballots_cast": 308,
+    "turnout_pct": 49.76
+  },
+  {
+    "precinct": 23,
+    "registered_voters": 821,
+    "ballots_cast": 449,
+    "turnout_pct": 54.69
+  },
+  {
+    "precinct": 24,
+    "registered_voters": 1791,
+    "ballots_cast": 630,
+    "turnout_pct": 35.18
+  },
+  {
+    "precinct": 25,
+    "registered_voters": 1156,
+    "ballots_cast": 600,
+    "turnout_pct": 51.9
+  },
+  {
+    "precinct": 26,
+    "registered_voters": 654,
+    "ballots_cast": 288,
+    "turnout_pct": 44.04
+  },
+  {
+    "precinct": 27,
+    "registered_voters": 1191,
+    "ballots_cast": 384,
+    "turnout_pct": 32.24
+  },
+  {
+    "precinct": 28,
+    "registered_voters": 1011,
+    "ballots_cast": 448,
+    "turnout_pct": 44.31
+  },
+  {
+    "precinct": 29,
+    "registered_voters": 381,
+    "ballots_cast": 252,
+    "turnout_pct": 66.14
+  },
+  {
+    "precinct": 30,
+    "registered_voters": 948,
+    "ballots_cast": 534,
+    "turnout_pct": 56.33
+  },
+  {
+    "precinct": 31,
+    "registered_voters": 961,
+    "ballots_cast": 516,
+    "turnout_pct": 53.69
+  },
+  {
+    "precinct": 32,
+    "registered_voters": 1014,
+    "ballots_cast": 339,
+    "turnout_pct": 33.43
+  },
+  {
+    "precinct": 33,
+    "registered_voters": 421,
+    "ballots_cast": 198,
+    "turnout_pct": 47.03
+  },
+  {
+    "precinct": 34,
+    "registered_voters": 799,
+    "ballots_cast": 401,
+    "turnout_pct": 50.19
+  },
+  {
+    "precinct": 35,
+    "registered_voters": 1115,
+    "ballots_cast": 657,
+    "turnout_pct": 58.92
+  }
+]
