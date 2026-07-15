@@ -5,11 +5,15 @@ import {
   SquaresFour,
   ChartBar,
   Buildings,
+  Target,
+  List,
 } from '@phosphor-icons/react';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home', icon: House },
+  { to: '/goals', label: 'Goals', icon: Target },
   { to: '/captains', label: 'Captains', icon: Users },
+  { to: '/activities', label: 'Activities', icon: List },
   { to: '/precincts', label: 'Precincts', icon: SquaresFour },
   { to: '/turnout', label: 'Turnout', icon: ChartBar },
   { to: '/directory', label: 'Directory', icon: Buildings },
@@ -31,7 +35,7 @@ export default function DashboardLayout() {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.to}
