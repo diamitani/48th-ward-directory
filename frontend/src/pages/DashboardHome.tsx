@@ -11,7 +11,7 @@ import {
   Phone,
 } from '@phosphor-icons/react';
 import { getCaptains, getTurnout, getBusinesses } from '../lib/data';
-import type { Captain, Turnout } from '../types';
+import { CAMPAIGN_GOALS, type Captain, type Turnout } from '../types';
 
 const TOTAL_PRECINCTS = 35;
 
@@ -164,6 +164,32 @@ export default function DashboardHome() {
             <div className="text-[11px] text-text-muted mt-1">{stat.sub}</div>
           </div>
         ))}
+      </div>
+
+      {/* Campaign Goals — from PC Overview & Responsibilities */}
+      <div className="grid grid-cols-3 gap-3">
+        {CAMPAIGN_GOALS.map((goal) => {
+          const pct = goal.target > 0 ? Math.min(100, Math.round((goal.current / goal.target) * 100)) : 0;
+          const colors = goal.id === 1 ? 'bg-accent' : goal.id === 2 ? 'bg-success' : 'bg-[#7C3AED]';
+          return (
+            <Link key={goal.id} to="/goals" className="stat-card hover:border-accent/30 transition-colors space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">{goal.id === 1 ? '🗳️' : goal.id === 2 ? '📊' : '🤝'}</span>
+                <span className="text-sm font-semibold text-text-primary">{goal.title}</span>
+              </div>
+              <p className="text-xs text-text-secondary line-clamp-2">{goal.description}</p>
+              <div>
+                <div className="w-full h-1.5 rounded-full bg-surface-300 overflow-hidden">
+                  <div className={`h-full rounded-full ${colors}`} style={{ width: `${pct}%` }} />
+                </div>
+                <div className="flex justify-between text-[10px] text-text-muted mt-1">
+                  <span>{goal.current} / {goal.target} activities</span>
+                  <span>{pct}%</span>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
       </div>
 
       {/* Two-column layout */}
